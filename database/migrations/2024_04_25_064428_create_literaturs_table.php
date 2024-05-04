@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('judul');
             $table->text('abstrak');
             $table->text('keyword');
+            $table->string('penerbit')->default('Ilmu Maju Publishers');
             $table->enum('jenis_koleksi', ['tugas akhir', 'disertasi', 'tesis']);
             $table->string('file');
             $table->integer('view')->default(0);

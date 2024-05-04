@@ -9,7 +9,7 @@ class LiteraturKontributor extends Model
 {
     use HasFactory;
     public $table = 'literatur_kontributor';
-
+    protected $guarded = ['id'];
     public function user()
     {
         return $this->belongsTo(User::class);
