@@ -25,7 +25,7 @@
         <section class="container py-5" id="literature">
             <h1 class="mb-4">Literatur Terbaru</h1>
             <div class="row g-4 mb-4">
-                @foreach ($daftarLiteratur as $literatur)
+                @foreach ($daftarLiteratur->take(4) as $literatur)
                     <article class="literature col-md-6">
                         <div class="mb-2 d-flex gap-2 align-items-center">
                             <span class="badge fw-normal text-bg-danger">{{ $literatur->jenis_koleksi }}</span>

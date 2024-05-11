@@ -31,6 +31,22 @@
                             placeholder="Strategi Pengelolaan Limbah Industri untuk Lingkungan Bersih" name="judul">
                     </div>
                     <div class="col-12">
+                        <label class="form-label" id="subject-label" for="subject">Subject</label>
+                        <select class="form-select" name="subject[]" id="subject" multiple
+                            aria-labelledby="subject-label">
+                            @foreach ($daftarSubject as $subject)
+                                <option value="{{ $subject->id }}"
+                                    @php
+foreach ($literatur->subject as $subject) {
+                                                                            if($subject->id == $subject->id) {
+                                                                                echo "selected";
+                                                                            }
+                                                                        } @endphp>
+                                    {{ $subject->subject->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-12">
                         <label class="form-label" for="abstrak">Abstrak</label>
                         <textarea class="form-control" id="abstrak" name="abstrak" rows="4"
                             placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aut earum, fuga impedit perferendis placeat ut. Alias aperiam blanditiis cupiditate enim harum, mollitia nemo!">{{ $literatur->abstrak }}</textarea>
@@ -50,6 +66,10 @@
                         </select>
                     </div>
                     <div class="col-12">
+                        <label class="form-label" id="penulis-label" for="penulis">Penulis</label>
+                        <textarea name="penulis_kontributor" class="form-control" id="" cols="30" rows="5">{{ $literatur->penulis_kontributor }}</textarea>
+                    </div>
+                    <div class="col-12">
                         <label class="form-label" id="kontributor-label" for="kontributor">Kontributor</label>
                         <select class="form-select" name="kontributor[]" id="kontributor" multiple
                             aria-labelledby="kontributor-label">
@@ -67,11 +87,12 @@ foreach ($literatur->kontributor as $kontributor) {
                         </select>
                     </div>
                     <div class="col-12">
-                        <label class="form-label" id="jenis-label" for="jenis">Jenis</label>
+                        <label class="form-label" id="jenis-label" for="jenis">Jenis Koleksi</label>
                         <select class="form-select" id="jenis" name="jenis_koleksi" aria-labelledby="jenis-label">
-                            <option value="tugas akhir" @selected($literatur->jenis_koleksi == 'tugas akhir')>Tugas Akhir</option>
-                            <option value="tesis" @selected($literatur->jenis_koleksi == 'tesis')>Tesis</option>
-                            <option value="disertasi" @selected($literatur->jenis_koleksi == 'disertasi')>Disertasi</option>
+                            @foreach ($daftarJenis as $jenis)
+                                <option @selected($jenis->id == $literatur->jenis_id) value="{{ $jenis->id }}">{{ $jenis->nama }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-12">
@@ -119,6 +140,9 @@ foreach ($literatur->kontributor as $kontributor) {
     <script>
         $(document).ready(function() {
             $('#kontributor').select2({
+                theme: 'bootstrap-5'
+            });
+            $('#subject').select2({
                 theme: 'bootstrap-5'
             });
 

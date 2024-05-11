@@ -5,9 +5,13 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Fakultas;
+use App\Models\Jenis;
 use App\Models\Literatur;
 use App\Models\LiteraturKontributor;
 use App\Models\Prodi;
+use App\Models\Subject;
+use App\Models\SubjectLiteratur;
+use App\Models\SubjectLitratur;
 use App\Models\User;
 use Database\Factories\LiteraturFactory;
 use Illuminate\Database\Seeder;
@@ -51,11 +55,22 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
             'prodi_id' => null,
         ]);
+        Jenis::create([
+            'nama' => 'Tugas akhir'
+        ]);
 
-        \App\Models\Literatur::factory(50)->create()->each(function ($literatur) use ($profAnsar) {
+        $subject = Subject::create([
+            'nama' => 'Artificial Inteligent',
+        ]);
+        \App\Models\Literatur::factory(50)->create()->each(function ($literatur) use ($profAnsar, $subject) {
             LiteraturKontributor::create([
                 'literatur_id' => $literatur->id,
                 'user_id' => $profAnsar->id, // dosen,
+            ]);
+
+            SubjectLiteratur::create([
+                'literatur_id' => $literatur->id,
+                'subject_id' => $subject->id,
             ]);
         });
     }

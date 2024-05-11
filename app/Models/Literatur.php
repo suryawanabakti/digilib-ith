@@ -18,4 +18,9 @@ class Literatur extends Model
     {
         return $this->hasMany(LiteraturKontributor::class);
     }
+
+    public function subject()
+    {
+        return $this->hasMany(SubjectLiteratur::class);
+    }
 }

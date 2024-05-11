@@ -71,8 +71,10 @@
                                     class="nav-icon"><span class="nav-icon-bullet"></span></span>Mahasiswa</a></li>
                         <li class="nav-item"><a class="nav-link" href="/master-data/dosen/"><span class="nav-icon"><span
                                         class="nav-icon-bullet"></span></span>Dosen</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/master-data/strata/"><span
-                                    class="nav-icon"><span class="nav-icon-bullet"></span></span>Strata</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/master-data/subject/"><span
+                                    class="nav-icon"><span class="nav-icon-bullet"></span></span>Subject</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/master-data/jenis/"><span
+                                    class="nav-icon"><span class="nav-icon-bullet"></span></span>Jenis</a></li>
                         <li class="nav-item"><a class="nav-link" href="/master-data/fakultas/"><span
                                     class="nav-icon"><span class="nav-icon-bullet"></span></span>Fakultas</a></li>
                         <li class="nav-item"><a class="nav-link" href="/master-data/program-studi/"><span

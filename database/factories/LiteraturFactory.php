@@ -21,7 +21,7 @@ class LiteraturFactory extends Factory
             'judul' => fake()->paragraph(1),
             'abstrak' => fake()->paragraph(5),
             'keyword' => "Lorem, ipsum, dolom",
-            'jenis_koleksi' => 'tugas akhir',
+            'jenis_id' => 1,
             'file' => 'tester.pdf'
         ];
     }

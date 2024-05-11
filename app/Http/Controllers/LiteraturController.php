@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fakultas;
+use App\Models\Jenis;
 use App\Models\Literatur;
 use App\Models\LiteraturKontributor;
+use App\Models\Subject;
+use App\Models\SubjectLiteratur;
 use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -35,7 +38,9 @@ class LiteraturController extends Controller
         })->get();
         $daftarDosen = User::where('role', 'dosen')->get();
         $daftarFakultas = Fakultas::with('prodi')->get();
-        return view('literatur.create', compact('daftarDosen', 'users', 'daftarFakultas'));
+        $daftarSubject = Subject::all();
+        $daftarJenis = Jenis::all();
+        return view('literatur.create', compact('daftarDosen', 'users', 'daftarFakultas', 'daftarSubject', 'daftarJenis'));
     }
 
     public function store(Request $request)
@@ -56,15 +61,23 @@ class LiteraturController extends Controller
             'abstrak' => $request->abstrak,
             'keyword' => $request->keyword,
             'user_id' => $request->penulis,
-            'jenis_koleksi' =>  $request->jenis_koleksi,
+            'penulis_kontributor' => $request->penulis_kontributor,
+            'jenis_id' =>  $request->jenis_koleksi,
             'penerbit' => $request->penerbit,
-            'file' => $request->file('file')->store('file')
+            'file' => $request->file('file')->store('file'),
         ]);
 
         foreach ($request->kontributor as $kontributor) {
             LiteraturKontributor::create([
                 'literatur_id' => $literatur->id,
                 'user_id' => $kontributor
+            ]);
+        }
+
+        foreach ($request->subject as $subject) {
+            SubjectLiteratur::create([
+                'literatur_id' => $literatur->id,
+                'subject_id' => $subject
             ]);
         }
         Alert::success("Berhasil tambah literatur");
@@ -79,7 +92,9 @@ class LiteraturController extends Controller
         })->get();
         $daftarDosen = User::where('role', 'dosen')->get();
         $daftarFakultas = Fakultas::with('prodi')->get();
-        return view('literatur.edit', compact('literatur', 'users', 'daftarDosen'));
+        $daftarSubject = Subject::all();
+        $daftarJenis = Jenis::all();
+        return view('literatur.edit', compact('literatur', 'users', 'daftarDosen', 'daftarSubject', 'daftarJenis'));
     }
 
     public function update(Request $request, Literatur $literatur)
@@ -99,7 +114,7 @@ class LiteraturController extends Controller
             'abstrak' => $request->abstrak,
             'keyword' => $request->keyword,
             'user_id' => $request->penulis,
-            'jenis_koleksi' =>  $request->jenis_koleksi,
+            'jenis_id' =>  $request->jenis_koleksi,
             'penerbit' => $request->penerbit,
 
         ]);
@@ -112,6 +127,13 @@ class LiteraturController extends Controller
             LiteraturKontributor::create([
                 'literatur_id' => $literatur->id,
                 'user_id' => $kontributor
+            ]);
+        }
+        SubjectLiteratur::where('literatur_id', $literatur->id)->delete();
+        foreach ($request->subject as $subject) {
+            SubjectLiteratur::create([
+                'literatur_id' => $literatur->id,
+                'subject_id' => $subject
             ]);
         }
         Alert::success("Berhasil update literatur");
